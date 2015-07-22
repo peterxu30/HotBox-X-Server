@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1.
+        title
+    ul
+        each user, i in testlist
+            li
+                =user.username
+                &nbsp
+                =user.score
+
+
