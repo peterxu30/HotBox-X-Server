@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-//experimental
 var settingProvider = require('../models/SettingProvider');
 var settingProvider = new SettingProvider();
 
@@ -22,29 +21,34 @@ router.use(function(req, res, next) {
 	console.log("counted " + totalNumberGames);
 });
 
-router.route('/config')
-	.get(function(req, res) {
-		settingProvider.findAll(function(err, settings) {
-			res.send(settings);
-		})
-	});
+//unnecessary
+// router.route('/config')
+// 	.get(function(req, res) {
+// 		settingProvider.findAll(function(err, settings) {
+// 			res.send(settings);
+// 		})
+// 	});
 
 router.route('/:gameNumber?')
 	.get(function(req, res) {
-		if (req.params.gameNumber 
-			&& req.params.gameNumber >= 0 
-			&& req.params.gameNumber < totalNumberGames) {
-			var gameNumber = req.params.gameNumber;
-		} else {
-			var gameNumber = "0";
-		}
-		settingProvider.find(gameNumber,  
-			function(err, setting) {
-				res.render('settings/display', {
-		        	"title" : "Change Game Settings",
-		        	"totalNumberGames" : totalNumberGames,
-		            "settings" : setting
-		    	});
+		// if (req.params.gameNumber 
+		// 	&& req.params.gameNumber >= 0 
+		// 	&& req.params.gameNumber < totalNumberGames) {
+		// 	var gameNumber = req.params.gameNumber;
+		// } else {
+		// 	var gameNumber = "0";
+		// }
+		settingProvider.findAll(  
+			function(err, settings) {
+				// res.render('settings/display', {
+		  //       	"title" : "Change Game Settings",
+		  //       	"totalNumberGames" : totalNumberGames,
+		  //           "settings" : setting
+		  //   	});
+				if (err) {
+					res.send(err);
+				}
+				res.json(settings);
 			}
 		);
 	})
@@ -73,21 +77,34 @@ router.route('/:gameNumber?')
 		};
 		settingProvider.update(req.body.game,
 			updatedSettings,
-			function() {
-				var url = '/settings/' + req.body.game;
-				res.redirect(url);
+			function(err, settings) {
+				// var url = '/settings/' + req.body.game;
+				// res.redirect(url);
+				if (err) {
+					res.send(err);
+				}
+				res.json(settings);
 			}
 		);
 	})
 
 	.delete(function(req, res) {
 		settingProvider.delete(req.params.gameNumber,
-			function() {
-				res.redirect('/');
+			function(err, setting) {
+				if (err) {
+					res.send(err);
+				}
+				settingProvider.find(function(err, settings) {
+					if (err) {
+						res.send(err);
+					}
+					res.json(settings);
+				});
 			}
 		);
 	});
 
+//replace this with angular
 router.route('/select')
 	.post(function(req, res) {
 		console.log("Selected " + req.body.select);
