@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="settingsApp">
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    
+	    <title> Change Game Settings </title>
+
+	    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    	<style>
+        	html                    { overflow-y:scroll; }
+        	body                    { padding-top:50px; }
+        	#setting-list           { margin-bottom:30px; }
+    	</style>
+	</head>
+
+	<body ng-controller="settingsController as settingsVm">
+		<h4> {{ "Current Game: " + settingsVm.currentGame }} </h4>
+		<h5> {{ "Total Number of Games: " + settingsVm.totalGames }} </h5>
+		<h6> (games are zero-indexed) </h6>
+		
+		<button ng-click="settingsVm.decrement()"> prev </button>
+		<input type="text" placeholder="game number" value="0" ng-model="settingsVm.currentGame"></input>
+		<button ng-click="settingsVm.increment()"> next </button>
+
+		<form ng-submit="settingsVm.update()">
+			<div ng-repeat="(key, value) in settingsVm.formData" ng-hide="$first">
+				{{ key + ": "}}
+				<input type="text" placeholder="{{ value }}" ng-value="value" required="string" ng-model="settingsVm.formData[key]" />
+			</div>
+			<input type="submit" value="Submit" class="btn btn-primary btn-lg" />
+		</form>
+
+		<button ng-click="settingsVm.remove(settingsVm.currentGame)"> delete </button>
+
+		<!--work in progress, sidebar for easy access-->
+		<div class="container-fluid">
+			<h4> Choose Game </h4>
+			<div ng-repeat="setting in settingsVm.settings">
+				<button ng-click="select(setting.game)"> {{ "Game: " + setting.game }} </button>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+		<script type="text/javascript" src="http://localhost:3000/javascripts/settings/settingsApp.js"></script>
+	</body>
+</html>
+
