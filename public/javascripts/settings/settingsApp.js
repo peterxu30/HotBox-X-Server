@@ -1,13 +1,36 @@
-function settingsController($scope, $http) {
-	$scope.formData = {};
-	$scope.currentGame = 0;
+/* Controller for settings */
 
+function settingsController($scope, $http, $filter) {
+	var baseData = 
+		{
+			"game" : null,
+			"objectSpawnX" : "800",
+			"objectSpeed" : "6",
+			"objectWidth" : "18",
+			"waveStart" : "480",
+			"normalSD" : "1",
+			"normalMean" : "1",
+			"distribution" : "uniform",
+			"gravity" : "14",
+			"playerY" : "240",
+			"playerX" : "60",
+			"playerHeight" : "32",
+			"playerWidth" : "32",
+			"playerSpeed" : "7.3",
+			"minScore" : "0",
+			"penaltyValue" : "5",
+			"rewardValue" : "1",
+			"gameMode" : "penalty"
+		};
+	$scope.currentGame = 0;
+	// $scope.formData = baseData;
 	/* Get information to display page */
 	$http.get('/settings/')
 		.success(function(data) {
 			$scope.totalGames = data.length;
-			// $scope.setting = data[$scope.currentGame];
-			$scope.setting = $filter('orderBy')(data, "game")[$scope.currentGame];
+			// $scope.settings= $filter('filter')(data, {"game": $scope.currentGame.toString()}, false)[0]; not updating
+			$scope.settings = $filter('orderBy')(data, "game", false);
+			$scope.formData = $scope.settings[$scope.currentGame];
 			console.log(data);
 		})
 
@@ -18,11 +41,12 @@ function settingsController($scope, $http) {
 	/* Create/update setting */
 	$scope.update = function() {
 		$http.post('/settings/', $scope.formData)
-			.sucess(function(data) {
+			.success($scope.$apply(function(data) {
+				console.log("Success");
+				console.log(formData);
 				$scope.formData = {};
-				$scope.setting = data[$scope.currentGame];
 				console.log(data);
-			})
+			}))
 
 			.error(function(data) {
 				console.log("Error: " + data);
@@ -33,8 +57,7 @@ function settingsController($scope, $http) {
 	$scope.delete = function(game) {
 		$http.delete('/settings/' + game)
 			.success(function(data) {
-				$scope.currentGame -= 1;
-				$scope.setting = data[$scope.currentGame];
+				$scope.currentGame = max($scope.currentGame - 1, 0);
 				console.log(data);
 			})
 
@@ -43,11 +66,16 @@ function settingsController($scope, $http) {
 			});
 	};
 
+	$scope.select = function(gameNumber) {
+		$scope.currentGame = gameNumber;
+	}
+
 	/* Go next game setting if possible */
 	$scope.increment = function() {
 		if ($scope.currentGame < $scope.totalGames - 1) {
 			$scope.currentGame += 1;
 		}
+		$scope.$digest();
 	}
 
 	/* Go preivous game setting if possible */
@@ -58,6 +86,18 @@ function settingsController($scope, $http) {
 	}
 	
 }
+
+// function filter() {
+//  	return function(items) {  
+// 	    items.sort(function(a,b){   
+// 	        if (parseInt(a.Sale.id) > parseInt(b.Sale.id))
+// 	            return 1;
+// 	        if (parseInt(a.Sale.id) < parseInt(b.Sale.id))
+// 	            return -1;         
+// 	        return 0; 
+// 	    });
+// 	}
+// }
 
 //use orderBy in html to sort
 /* Code borrowed from Armin. http://stackoverflow.com/questions/14478106/angularjs-sorting-by-property */
@@ -83,5 +123,6 @@ function settingsController($scope, $http) {
 
 angular
 	.module('settingsApp', [])
-	.controller('settingsController', settingsController);
+	.controller('settingsController', ['$scope', '$http', '$filter', settingsController]);
+	// .filter('settingsFilter', [filter]);
 

@@ -11,13 +11,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { "title": 'Running Game' });
 });
 
-/* GET about page */
-router.get('/about', function(req, res) {
-    res.render('about', { "title": 'About' });
-});
-
-
-
 /* Test stuff */
 router.get('/helloworld', function(req, res, next) {
 	res.render('helloworld', { title: 'Hello, world!'});

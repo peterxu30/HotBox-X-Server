@@ -19,6 +19,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var settings = require('./routes/settings');
 var data = require('./routes/data');
+var path = require('path');
 
 var app = express();
 
@@ -44,10 +45,57 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use('/', routes);
+// app.use('/', routes);
 app.use('/users', users);
 app.use('/settings', settings);
 app.use('/data', data);
+
+app.get('/', function(req, res) {
+    // res.sendfile('./views/settings/display.html'); // load the single view file (angular will handle the page changes on the front-end)
+    res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
+    // res.sendFile('posttest.html', { root: path.join(__dirname, './views/settings/') });
+});
+
+// var fs = require("fs");
+// var http = require("http");
+// var url = require("url");
+
+// var contentTypes = {
+//     '.html': 'text/html',
+//     '.css': "text/css",
+//     '.js': 'application/javascript'
+// };
+
+// http.createServer(function (req, res) {
+
+//     var pathName = url.parse(req.url).pathname;
+//     var fileName = path.join(__dirname, pathName);
+//     console.log("Request for " + pathname + " received.");
+
+//     response.writeHead(200);
+
+//     var contentType = contentTypes[path.extname(filename)];
+//     fs.readFile(filename, function(err, file) {
+//         // errors?
+//         if (err) {
+//             response.writeHead(404, {'Content-type:': 'text/plain'});
+//             response.write(err + "\n");
+//             response.end();
+//         } else {
+//             console.log('MIME TYPE for: ', filename , contentType);
+//             response.setHeader('Content-Type:', contentType);
+//             response.writeHead(200);
+//             response.write(file);
+//             response.end();
+//         }
+//     });
+
+//     response.end();
+// }).listen(8888);
+
+// console.log("Listening to server on 8888...");
+
+// app.listen(8000);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

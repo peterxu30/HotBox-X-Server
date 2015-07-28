@@ -15,11 +15,11 @@ var count = function() {
 };
 
 /* Check total number of games before every call */
-router.use(function(req, res, next) {
-	count();
-	next();
-	console.log("counted " + totalNumberGames);
-});
+// router.use(function(req, res, next) {
+// 	count();
+// 	next();
+// 	console.log("counted " + totalNumberGames);
+// });
 
 //unnecessary
 // router.route('/config')
@@ -75,14 +75,14 @@ router.route('/:gameNumber?')
 			"objectSpeed" : req.body.objectSpeed,
 			"objectSpawnX" : req.body.objectSpawnX
 		};
+		console.log(req.body.game);
 		settingProvider.update(req.body.game,
 			updatedSettings,
 			function(err, settings) {
-				// var url = '/settings/' + req.body.game;
-				// res.redirect(url);
 				if (err) {
 					res.send(err);
 				}
+				console.log("Settings updated");
 				res.json(settings);
 			}
 		);
@@ -94,7 +94,7 @@ router.route('/:gameNumber?')
 				if (err) {
 					res.send(err);
 				}
-				settingProvider.find(function(err, settings) {
+				settingProvider.findAll( function(err, settings) {
 					if (err) {
 						res.send(err);
 					}
