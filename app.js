@@ -10,7 +10,7 @@ var ejs = require('ejs');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var settingsdb = mongoose.createConnection('localhost:27017/settingscollection');
-var datadb = mongoose.createConnection('localhost:27017/testscollection');
+var datadb = mongoose.createConnection('localhost:27017/datacollection');
 var monk = require('monk');
 var db = monk('localhost:27017/settingscollection');
 var db2 = monk('localhost:27017/testcollection');
@@ -26,7 +26,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-// app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -55,46 +54,6 @@ app.get('/', function(req, res) {
     res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
     // res.sendFile('posttest.html', { root: path.join(__dirname, './views/settings/') });
 });
-
-// var fs = require("fs");
-// var http = require("http");
-// var url = require("url");
-
-// var contentTypes = {
-//     '.html': 'text/html',
-//     '.css': "text/css",
-//     '.js': 'application/javascript'
-// };
-
-// http.createServer(function (req, res) {
-
-//     var pathName = url.parse(req.url).pathname;
-//     var fileName = path.join(__dirname, pathName);
-//     console.log("Request for " + pathname + " received.");
-
-//     response.writeHead(200);
-
-//     var contentType = contentTypes[path.extname(filename)];
-//     fs.readFile(filename, function(err, file) {
-//         // errors?
-//         if (err) {
-//             response.writeHead(404, {'Content-type:': 'text/plain'});
-//             response.write(err + "\n");
-//             response.end();
-//         } else {
-//             console.log('MIME TYPE for: ', filename , contentType);
-//             response.setHeader('Content-Type:', contentType);
-//             response.writeHead(200);
-//             response.write(file);
-//             response.end();
-//         }
-//     });
-
-//     response.end();
-// }).listen(8888);
-
-// console.log("Listening to server on 8888...");
-
 // app.listen(8000);
 
 // catch 404 and forward to error handler

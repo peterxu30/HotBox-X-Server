@@ -1,13 +1,14 @@
 /* Controller for settings */
 
 function settingsController($http, $filter) {
-	// $scope.currentGame = 0;
+	/* object bindings */
 	var vm = this;
 	vm.currentGame = 0;
 	vm.totalGames;
 	vm.settings;
 	vm.formData;
 
+	/* function bindings */
 	vm.refresh = refresh;
 	vm.update = update;
 	vm.remove = remove;
@@ -37,6 +38,7 @@ function settingsController($http, $filter) {
 	function update() {
 		$http.post('/settings/', vm.formData)
 			.success(function(data) {
+				vm.currentGame = vm.formData["game"];
 				vm.formData = {};
 				console.log(data);
 				refresh();
@@ -66,6 +68,7 @@ function settingsController($http, $filter) {
 			});
 	}
 
+	/* Go to selected game */
 	function select(gameNumber) {
 		vm.currentGame = gameNumber;
 		refresh();

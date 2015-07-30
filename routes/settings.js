@@ -1,50 +1,19 @@
+/* 
+ * Handles all game settings data related functions.
+ * Sends settings to game.
+ * Displays settings.
+ */
+
 var express = require('express');
 var router = express.Router();
 
 var settingProvider = require('../models/SettingProvider');
 var settingProvider = new SettingProvider();
 
-var totalNumberGames;
-
-var count = function() {
-	settingProvider.count({}, 
-		function(err, numberOfDocs) {
-			totalNumberGames = numberOfDocs;
-		}
-	);
-};
-
-/* Check total number of games before every call */
-// router.use(function(req, res, next) {
-// 	count();
-// 	next();
-// 	console.log("counted " + totalNumberGames);
-// });
-
-//unnecessary
-// router.route('/config')
-// 	.get(function(req, res) {
-// 		settingProvider.findAll(function(err, settings) {
-// 			res.send(settings);
-// 		})
-// 	});
-
-router.route('/:gameNumber?')
+router.route('/:game?')
 	.get(function(req, res) {
-		// if (req.params.gameNumber 
-		// 	&& req.params.gameNumber >= 0 
-		// 	&& req.params.gameNumber < totalNumberGames) {
-		// 	var gameNumber = req.params.gameNumber;
-		// } else {
-		// 	var gameNumber = "0";
-		// }
 		settingProvider.findAll(  
 			function(err, settings) {
-				// res.render('settings/display', {
-		  //       	"title" : "Change Game Settings",
-		  //       	"totalNumberGames" : totalNumberGames,
-		  //           "settings" : setting
-		  //   	});
 				if (err) {
 					res.send(err);
 				}
@@ -89,7 +58,7 @@ router.route('/:gameNumber?')
 	})
 
 	.delete(function(req, res) {
-		settingProvider.delete(req.params.gameNumber,
+		settingProvider.delete(req.params.game,
 			function(err, setting) {
 				if (err) {
 					res.send(err);
@@ -102,14 +71,6 @@ router.route('/:gameNumber?')
 				});
 			}
 		);
-	});
-
-//replace this with angular
-router.route('/select')
-	.post(function(req, res) {
-		console.log("Selected " + req.body.select);
-		var url = '/settings/' + req.body.select;
-		res.redirect(url);
 	});
 
 module.exports = router;

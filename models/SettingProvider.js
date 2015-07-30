@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/settingscollection');
-// mongoose.connect('mongodb://localhost:27017/settingscollection');
+var db = mongoose.createConnection('mongodb://localhost:27017/settingscollection');
 
 var schema = mongoose.Schema;
 var objectID = schema.ObjectID;
@@ -26,8 +25,8 @@ var Setting = new mongoose.Schema({
 	"objectSpawnX" : String
 });
 
-mongoose.model('Setting', Setting);
-var Setting = mongoose.model('Setting');
+db.model('Setting', Setting);
+var Setting = db.model('Setting');
 
 SettingProvider = function(){};
 
@@ -55,7 +54,7 @@ SettingProvider.prototype.find = function(game, callback) {
 };
 
 SettingProvider.prototype.update = function(game, setting, callback) {
-	Setting.update(
+	Setting.update( // didn't use save because don't want update by _id
 		{ "game" : game },
 		setting,
 		{ upsert : true },
@@ -76,16 +75,6 @@ SettingProvider.prototype.delete = function(game, callback) {
 			}
 		}
 	);
-};
-
-SettingProvider.prototype.count = function(criteria, callback) {
-	Setting.count(criteria,
-		function(err, numberOfDocs) {
-			if (!err) {
-				console.log(numberOfDocs);
-				callback(null, numberOfDocs);
-			}
-		});
 };
 
 // new SettingProvider().update(0, 

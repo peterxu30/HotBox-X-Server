@@ -7,8 +7,10 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { "title": 'Running Game' });
+router.get('/', function(req, res) {
+    // res.sendfile('./views/settings/display.html'); // load the single view file (angular will handle the page changes on the front-end)
+    res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
+    // res.sendFile('posttest.html', { root: path.join(__dirname, './views/settings/') });
 });
 
 /* Test stuff */
