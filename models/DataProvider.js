@@ -9,6 +9,7 @@ var Data = new mongoose.Schema({
 	"game" : Number,
 	"gameData" : [{
 		"timeStamp" : Number,
+		"waveSpawned" : Boolean,
 		"pressedSpace" : Boolean,
 		"obstacleCollision" : Boolean,
 		"rewarded" : Boolean,
@@ -36,14 +37,13 @@ var Data = db.model('Data');
 DataProvider = function(){};
 
 DataProvider.prototype.findAll = function(callback) {
-	Data.find(
-		{}, 
-		function(err, datas) {
+	Data.find()
+		.sort("game")
+		.exec(function(err, datas) {
 			if (!err) {
 				callback(null, datas);
 			}
-		}
-	);
+		});
 };
 
 DataProvider.prototype.find = function(game, callback) {
@@ -75,6 +75,16 @@ DataProvider.prototype.delete = function(game, callback) {
 		function(err, object) {
 			if (!err) {
 				callback();
+			}
+		}
+	);
+};
+
+DataProvider.prototype.count = function(criteria, callback) {
+	Data.count(criteria,
+		function(err, numberOfDocs) {
+			if (!err) {
+				callback(null, numberOfDocs);
 			}
 		}
 	);

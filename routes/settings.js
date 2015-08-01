@@ -10,6 +10,22 @@ var router = express.Router();
 var settingProvider = require('../models/SettingProvider');
 var settingProvider = new SettingProvider();
 
+var length;
+
+var count = function() {
+	settingProvider.count({}, 
+		function(err, numberOfDocs) {
+			length = numberOfDocs;
+		}
+	);
+};
+
+/* Check number of game settings after every change */
+router.use(function(req, res, next) {
+	count();
+	next();
+});
+
 router.route('/:game?')
 	.get(function(req, res) {
 		settingProvider.findAll(  
@@ -17,7 +33,7 @@ router.route('/:game?')
 				if (err) {
 					res.send(err);
 				}
-				res.json(settings);
+				res.json({ "length" : length, "settings" : settings });
 			}
 		);
 	})
@@ -63,7 +79,7 @@ router.route('/:game?')
 				if (err) {
 					res.send(err);
 				}
-				settingProvider.findAll( function(err, settings) {
+				settingProvider.findAll(function(err, settings) {
 					if (err) {
 						res.send(err);
 					}

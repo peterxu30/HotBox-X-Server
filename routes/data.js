@@ -14,6 +14,22 @@ var router = express.Router();
 var dataProvider = require('../models/DataProvider');
 var dataProvider = new DataProvider();
 
+var length;
+
+var count = function() {
+	dataProvider.count({}, 
+		function(err, numberOfDocs) {
+			length = numberOfDocs;
+		}
+	);
+};
+
+/* Check number of game data objects after every change */
+router.use(function(req, res, next) {
+	count();
+	next();
+});
+
 router.route('/:game?')
 	.get(function(req, res) {
 		dataProvider.findAll(  
@@ -21,7 +37,10 @@ router.route('/:game?')
 				if (err) {
 					res.send(err);
 				}
-				res.json(datas);
+				datas.sort(function(obj1, obj2) {
+					return obj1.game - obj2.game;
+				});
+				res.json({ "length" : length, "data" : datas });
 			}
 		);
 	})

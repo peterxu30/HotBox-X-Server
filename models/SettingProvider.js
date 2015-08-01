@@ -31,14 +31,13 @@ var Setting = db.model('Setting');
 SettingProvider = function(){};
 
 SettingProvider.prototype.findAll = function(callback) {
-	Setting.find(
-		{}, 
-		function(err, settings) {
+	Setting.find()
+		.sort("game")
+		.exec(function(err, settings) {
 			if (!err) {
 				callback(null, settings);
 			}
-		}
-	);
+		});
 };
 
 SettingProvider.prototype.find = function(game, callback) {
@@ -72,6 +71,16 @@ SettingProvider.prototype.delete = function(game, callback) {
 		function(err, object) {
 			if (!err) {
 				callback();
+			}
+		}
+	);
+};
+
+SettingProvider.prototype.count = function(criteria, callback) {
+	Setting.count(criteria,
+		function(err, numberOfDocs) {
+			if (!err) {
+				callback(null, numberOfDocs);
 			}
 		}
 	);

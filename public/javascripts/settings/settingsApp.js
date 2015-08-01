@@ -20,8 +20,11 @@ function settingsController($http, $filter) {
 	function refresh() {
 		$http.get('/settings/')
 			.success(function(data) {
-				vm.totalGames = data.length;
-				vm.settings = $filter('orderBy')(data, "game", false);
+				vm.totalGames = data["length"];
+				data = data["settings"];
+				vm.settings = data;
+				/* Sorting done server side now. */
+				// vm.settings = $filter('orderBy')(data, "game", false);
 				vm.formData = vm.settings[vm.currentGame];
 				console.log(data);
 			})
