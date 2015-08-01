@@ -20,7 +20,7 @@
 		<h6> (games are zero-indexed) </h6>
 		
 		<button ng-click="settingsVm.decrement()"> prev </button>
-		<input type="text" placeholder="game number" value="0" ng-model="settingsVm.currentGame"></input>
+		<input type="text" placeholder="game number" value="0" ng-model="settingsVm.currentGame" />
 		<button ng-click="settingsVm.increment()"> next </button>
 
 		<form ng-submit="settingsVm.update()">

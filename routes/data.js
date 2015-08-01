@@ -46,7 +46,7 @@ router.route('/:game?')
 	})
 
 	.post(function(req, res) {
-		console.log(req.body[0]);
+		// console.log(req.body[0]);
 		for (var count = 0; count < req.body.length ; count++) {
 			var data = req.body[count];
 			var newData = 
@@ -59,7 +59,7 @@ router.route('/:game?')
 			console.log(newData);
 
 			dataProvider.create(
-				req.body,
+				newData,
 				function(err, datas) {
 					if (err) {
 						res.send(err);

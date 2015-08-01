@@ -51,7 +51,8 @@ app.use('/data', data);
 
 app.get('/', function(req, res) {
     // res.sendfile('./views/settings/display.html'); // load the single view file (angular will handle the page changes on the front-end)
-    res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
+    // res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
+    res.sendFile('display.html', { root: path.join(__dirname, './views/data/') });
     // res.sendFile('posttest.html', { root: path.join(__dirname, './views/settings/') });
 });
 // app.listen(8000);

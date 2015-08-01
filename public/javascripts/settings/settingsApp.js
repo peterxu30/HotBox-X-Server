@@ -20,8 +20,8 @@ function settingsController($http, $filter) {
 	function refresh() {
 		$http.get('/settings/')
 			.success(function(data) {
-				vm.totalGames = data["length"];
-				data = data["settings"];
+				vm.totalGames = data.length;
+				data = data.settings;
 				vm.settings = data;
 				/* Sorting done server side now. */
 				// vm.settings = $filter('orderBy')(data, "game", false);
@@ -41,7 +41,7 @@ function settingsController($http, $filter) {
 	function update() {
 		$http.post('/settings/', vm.formData)
 			.success(function(data) {
-				vm.currentGame = vm.formData["game"];
+				vm.currentGame = vm.formData.game; //changed from vm.formData["game"] 
 				vm.formData = {};
 				console.log(data);
 				refresh();
@@ -81,16 +81,18 @@ function settingsController($http, $filter) {
 	function increment() {
 		if (vm.currentGame < vm.totalGames - 1) {
 			select(vm.currentGame + 1);
+		} else {
+			refresh();
 		}
-		refresh();
 	}
 
 	/* Go preivous game setting if possible */
 	function decrement() {
 		if (vm.currentGame > 0) {
 			select(vm.currentGame - 1);
+		} else {
+			refresh();
 		}
-		refresh();
 	}
 }
 
