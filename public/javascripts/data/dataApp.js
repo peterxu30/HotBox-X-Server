@@ -28,7 +28,7 @@ function dataController($http, $filter) {
 	vm.decrementGameType = decrementGameType;
 	vm.incrementCurrentGame = incrementCurrentGame;
 	vm.decrementCurrentGame = decrementCurrentGame;
-	vm.JSON2CSV = JSON2CSV;
+	// vm.JSON2CSV = JSON2CSV;
 	vm.download = download;
 
 	function refresh() {
@@ -69,6 +69,17 @@ function dataController($http, $filter) {
 			.error(function(data) {
 				console.log(data);
 			});
+	}
+
+	function download() {
+		$http.get('/data/csv/')
+			.success(function(csv) {
+				console.log(csv);
+			})
+
+			.error(function(csv) {
+				console.log(csv);
+			});	
 	}
 
 	/* Deletes all game settings for ALL game types */
@@ -117,63 +128,8 @@ function dataController($http, $filter) {
 			refresh();
 		}
 	}
-
-	// UNDER DEVELOPMENT
-	// function JSON2CSV(objArray) {
-	//     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-	//     // var array = JSON.parse(vm.data);
-	//     var str = '';
-	//     var line = '';
-
-	//     // if ($("#labels").is(':checked')) {
-	//     if (true) {
-	//         var head = array[0];
-	//         // if ($("#quote").is(':checked')) {
-	//         if (true) {
-	//             for (var index in array[0]) {
-	//                 var value = index + "";
-	//                 line += '"' + value.replace(/"/g, '""') + '",';
-	//             }
-	//         } else {
-	//             for (var index in array[0]) {
-	//                 line += index + ',';
-	//             }
-	//         }
-
-	//         line = line.slice(0, -1);
-	//         str += line + '\r\n';
-	//     }
-
-	//     for (var i = 0; i < array.length; i++) {
-	//         var line = '';
-
-	//         // if ($("#quote").is(':checked')) {
-	//         if (true) {
-	//             for (var index in array[i]) {
-	//                 var value = array[i][index] + "";
-	//                 line += '"' + value.replace(/"/g, '""') + '",';
-	//             }
-	//         } else {
-	//             for (var index in array[i]) {
-	//                 line += array[i][index] + ',';
-	//             }
-	//         }
-
-	//         line = line.slice(0, -1);
-	//         str += line + '\r\n';
-	//     }
-	//     return str;
-	    
-	// }
-
-	// function download() {
- //    	var json = vm.data;
- //    	var csv = JSON2CSV(json);
- //    	window.open("data:text/csv;charset=utf-8," + escape(csv))
-	// }
-
 }
 
 angular
-	.module('dataApp', [])
+	.module('dataApp', ['ngSanitize', 'ngCsv'])
 	.controller('dataController', ['$http', '$filter', dataController]);
