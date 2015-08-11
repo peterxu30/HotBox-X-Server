@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var db = mongoose.createConnection('mongodb://localhost:27017/settingscollection');
 
 var schema = mongoose.Schema;
-var objectID = schema.ObjectID;
 
 var Setting = new mongoose.Schema({
 	"game" : String,

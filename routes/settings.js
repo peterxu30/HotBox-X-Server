@@ -3,7 +3,6 @@
  * Sends settings to game.
  * Displays settings.
  */
-
 var express = require('express');
 var router = express.Router();
 
@@ -39,6 +38,7 @@ router.route('/:game?')
 	})
 
 	.post(function(req, res) {
+		console.log(req.body.password);
 		var updatedSettings = 
 		{
 			"game" : req.body.game,

@@ -4,24 +4,43 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var path = require('path');
 
-var ejs = require('ejs');
+// var http = require('http');
+var https = require('https');
+var fs = require('fs');
 
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
-var settingsdb = mongoose.createConnection('localhost:27017/settingscollection');
-var datadb = mongoose.createConnection('localhost:27017/datacollection');
-var monk = require('monk');
-var db = monk('localhost:27017/settingscollection');
-var db2 = monk('localhost:27017/testcollection');
+// var mongo = require('mongodb');
+// var mongoose = require('mongoose');
+// var settingsdb = mongoose.createConnection('localhost:27017/settingscollection');
+// var datadb = mongoose.createConnection('localhost:27017/datacollection');
+// var monk = require('monk');
+// var db = monk('localhost:27017/settingscollection');
+// var db2 = monk('localhost:27017/testcollection');
 
-var routes = require('./routes/index');
+// var routes = require('./routes/index');
+var login = require('./routes/login');
+//all routes below this must be authenticated before using.
+var tokenauth = require('./routes/tokenauth');
 var users = require('./routes/users');
 var settings = require('./routes/settings');
 var data = require('./routes/data');
-var path = require('path');
 
 var app = express();
+
+var options = {
+    key: fs.readFileSync('./ssl/server.key'),
+    cert: fs.readFileSync('./ssl/server.crt'),
+    ca: fs.readFileSync('./ssl/ca.crt'),
+    requestCert: true,
+    rejectUnauthorized: false
+};
+
+var secureServer = https.createServer(options, app).listen('8443', function() {
+    console.log("Secure Express server listening on port 8443");
+});
+
+// http.createServer(app).listen(3500);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,28 +53,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 /* All requests routed through here before being passed on. */
 app.use(function(req,res,next){
-    req.db = db;
-    req.db2 = db2;
-    req.settingsdb = settingsdb;
-    req.datadb = datadb;
+    // req.db = db;
+    // req.db2 = db2;
+    // req.settingsdb = settingsdb;
+    // req.datadb = datadb;
     next();
 });
 
 // app.use('/', routes);
+app.use('/login', login);
+// app.use(tokenauth);
 app.use('/users', users);
-app.use('/settings', settings);
 app.use('/data', data);
+app.use('/settings', settings);
 
 app.get('/', function(req, res) {
-    // res.sendfile('./views/settings/display.html'); // load the single view file (angular will handle the page changes on the front-end)
     // res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
-    res.sendFile('display.html', { root: path.join(__dirname, './views/data/') });
-    // res.sendFile('posttest.html', { root: path.join(__dirname, './views/settings/') });
+    // res.sendFile('display.html', { root: path.join(__dirname, './views/data/') });
+    res.sendFile('index.html', { root: path.join(__dirname, './views/') });
 });
-// app.listen(8000);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

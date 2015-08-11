@@ -1,20 +1,49 @@
 /* Routes between views */
 
-function routeProvider($routeProvider) {
+function router($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'views/index.html',
-			controller: 'homeController'
+			templateUrl: 'main.html'
+			// controller: 'indexController',
+			// controllerAs: 'indexVm'
+		})
+
+		.when('/about', {
+			templateUrl: 'about.html'
 		})
 
 		.when('/settings', {
-        	templateUrl: 'views/settings/display.html',
-        	controller: 'settingsController'
+        	templateUrl: 'settings/display.html',
+        	controller: 'settingsController',
+        	controllerAs: 'settingsVm',
+        	resolve: {
+        		checkLoggedIn: function($q, $rootScope) {
+					var defer = $q.defer();
+					if($rootScope.$storage.loggedIn){
+						defer.resolve();
+					} else {
+						defer.reject("not_logged_in");
+					}
+					return defer.promise;
+				}
+			}
       	})
       	
       	.when('/data', {
-        	templateUrl: 'views/data/display.html',
-        	controller: 'dataController'
+        	templateUrl: 'data/display.html',
+        	controller: 'dataController',
+        	controllerAs: 'dataVm',
+        	resolve: {
+        		checkLoggedIn: function($q, $rootScope){
+					var defer = $q.defer();
+					if($rootScope.$storage.loggedIn){
+						defer.resolve();
+					} else {
+						defer.reject("not_logged_in");
+					}
+					return defer.promise;
+				}
+            }
       	})
       	
       	.otherwise({
@@ -22,13 +51,15 @@ function routeProvider($routeProvider) {
       	});
 }
 
-angular
-	.module('routesApp', [
-		'ngroute',
-		'homeController'
-		'settings/settingsController',
-		'data/dataController'
-	])
+function routeController($scope, $location) {
+	$scope.$on('$routeChangeError', function(evt,current,previous,rejection){
+		if(rejection == "not_logged_in"){
+			$location.path("/");
+		} 
+	});
+}
 
-	.config(['$routeProvider',
-		routeProvider]);
+angular
+	.module('routesApp', ['ngRoute', 'settingsApp', 'dataApp'])
+	.config(['$routeProvider', router])
+	.controller('routeController', ['$scope', '$location', routeController]);

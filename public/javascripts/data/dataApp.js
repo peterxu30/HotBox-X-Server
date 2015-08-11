@@ -6,7 +6,9 @@
 	Allow csv of all data to be downloaded.
 */
 
-function dataController($http, $filter) {
+function dataController($rootScope, $http, $filter) {
+	$http.defaults.headers.common["x-access-token"] = $rootScope.$storage.token;
+
 	/* object bindings */
 	var vm = this;
 	vm.data; //al data
@@ -74,6 +76,12 @@ function dataController($http, $filter) {
 	function download() {
 		$http.get('/data/csv/')
 			.success(function(csv) {
+				var saving = document.createElement('a');
+
+			    saving.href = 'data:attachment/csv,' + encodeURIComponent(csv);
+			    saving.download = 'data.csv';
+			    saving.click();
+
 				console.log(csv);
 			})
 
@@ -131,5 +139,5 @@ function dataController($http, $filter) {
 }
 
 angular
-	.module('dataApp', ['ngSanitize', 'ngCsv'])
-	.controller('dataController', ['$http', '$filter', dataController]);
+	.module('dataApp', [])
+	.controller('dataController', ['$rootScope', '$http', '$filter', dataController]);

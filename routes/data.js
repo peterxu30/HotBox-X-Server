@@ -47,8 +47,8 @@ router.route('/csv')
 				console.log("Updated data");
 				updated = false;
 			}
-			res.set('Content-Type', 'text/csv');
-			res.set('Content-disposition', 'attachment; filename=data.csv');
+			// res.set('Content-Type', 'text/csv');
+			// res.set('Content-disposition', 'attachment; filename=data.csv');
 			res.send(csvString);
 		});
 	});

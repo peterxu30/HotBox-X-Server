@@ -1,6 +1,8 @@
 /* Controller for settings */
 
-function settingsController($http, $filter) {
+function settingsController($rootScope, $http, $filter) {
+	$http.defaults.headers.common["x-access-token"] = $rootScope.$storage.token;
+
 	/* object bindings */
 	var vm = this;
 	vm.currentGame = 0;
@@ -15,7 +17,7 @@ function settingsController($http, $filter) {
 	vm.select = select;
 	vm.increment = increment;
 	vm.decrement = decrement;
-	
+
 	/* Get information to display page */
 	function refresh() {
 		$http.get('/settings/')
@@ -97,5 +99,5 @@ function settingsController($http, $filter) {
 }
 
 angular
-	.module('settingsApp', [])
-	.controller('settingsController', ['$http', '$filter', settingsController]);
+	.module('settingsApp', ['angular-jwt'])
+	.controller('settingsController', ['$rootScope', '$http', '$filter', settingsController]);
