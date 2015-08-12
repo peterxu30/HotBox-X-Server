@@ -3,14 +3,17 @@
  * Sends settings to game.
  * Displays settings.
  */
+
 var express = require('express');
 var router = express.Router();
 
 var settingProvider = require('../models/SettingProvider');
 var settingProvider = new SettingProvider();
 
+/* Number of game settings */
 var length;
 
+/* Counts number of game settings */
 var count = function() {
 	settingProvider.count({}, 
 		function(err, numberOfDocs) {
@@ -25,7 +28,10 @@ router.use(function(req, res, next) {
 	next();
 });
 
+
 router.route('/:game?')
+
+	/* Get game settings */
 	.get(function(req, res) {
 		settingProvider.findAll(  
 			function(err, settings) {
@@ -37,8 +43,8 @@ router.route('/:game?')
 		);
 	})
 
+	/* Add new/updated game settings to database */
 	.post(function(req, res) {
-		console.log(req.body.password);
 		var updatedSettings = 
 		{
 			"game" : req.body.game,
@@ -60,19 +66,19 @@ router.route('/:game?')
 			"objectSpeed" : req.body.objectSpeed,
 			"objectSpawnX" : req.body.objectSpawnX
 		};
-		console.log(req.body.game);
+
 		settingProvider.update(req.body.game,
 			updatedSettings,
 			function(err, settings) {
 				if (err) {
 					res.send(err);
 				}
-				console.log("Settings updated");
 				res.json(settings);
 			}
 		);
 	})
-
+	
+	/* Delete specific game settings */
 	.delete(function(req, res) {
 		settingProvider.delete(req.params.game,
 			function(err, setting) {

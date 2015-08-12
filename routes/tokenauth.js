@@ -1,4 +1,4 @@
-// pass token in as header is most optimal
+/* Verifies valid token before allowing any HTTP requests to protected routes */
 
 var express = require('express');
 var jwt = require('jsonwebtoken');
@@ -6,6 +6,10 @@ var config = require('../config');
 
 var router = express.Router();
 
+/* 
+ * Code borrowed from Scotch.io tutorial.
+ * Source: https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+ */
 var tokenauth = function(req, res, next) {
 	// check header or url parameters or post parameters for token
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -16,14 +20,6 @@ var tokenauth = function(req, res, next) {
 		jwt.verify(token, config.secret, function(err, decoded) {      
 			if (err) {
 				return res.json({ success: false, message: 'Failed to authenticate token.' }); 
-				// jwt.verify(token, config.lessSecret, function(err, decoded) {
-				// 	if (err) {
-				// 		return res.json({ success: false, message: 'Failed to authenticate token.' }); 
-				// 	} else {
-				// 		req.decoded = decoded;
-				// 		next();
-				// 	}
-				// });
 			} else {
 			// if everything is good, save to request for use in other routes
 				req.decoded = decoded;    

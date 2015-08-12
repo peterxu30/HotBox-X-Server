@@ -1,4 +1,7 @@
-/* Controller for settings */
+/* 
+ * Handles logic for settings page.
+ * Front end logic for interacting with database to modify game settings
+ */
 
 function settingsController($rootScope, $http, $filter) {
 	$http.defaults.headers.common["x-access-token"] = $rootScope.$storage.token;
@@ -25,8 +28,6 @@ function settingsController($rootScope, $http, $filter) {
 				vm.totalGames = data.length;
 				data = data.settings;
 				vm.settings = data;
-				/* Sorting done server side now. */
-				// vm.settings = $filter('orderBy')(data, "game", false);
 				vm.formData = vm.settings[vm.currentGame];
 				console.log(data);
 			})
@@ -75,7 +76,7 @@ function settingsController($rootScope, $http, $filter) {
 
 	/* Go to selected game */
 	function select(gameNumber) {
-		vm.currentGame = gameNumber;
+		vm.currentGame = parseInt(gameNumber);
 		refresh();
 	}
 

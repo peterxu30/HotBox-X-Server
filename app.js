@@ -10,15 +10,6 @@ var path = require('path');
 var https = require('https');
 var fs = require('fs');
 
-// var mongo = require('mongodb');
-// var mongoose = require('mongoose');
-// var settingsdb = mongoose.createConnection('localhost:27017/settingscollection');
-// var datadb = mongoose.createConnection('localhost:27017/datacollection');
-// var monk = require('monk');
-// var db = monk('localhost:27017/settingscollection');
-// var db2 = monk('localhost:27017/testcollection');
-
-// var routes = require('./routes/index');
 var login = require('./routes/login');
 //all routes below this must be authenticated before using.
 var tokenauth = require('./routes/tokenauth');
@@ -55,16 +46,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
-/* All requests routed through here before being passed on. */
-app.use(function(req,res,next){
-    // req.db = db;
-    // req.db2 = db2;
-    // req.settingsdb = settingsdb;
-    // req.datadb = datadb;
-    next();
-});
-
-// app.use('/', routes);
 app.use('/login', login);
 // app.use(tokenauth);
 app.use('/users', users);
@@ -72,8 +53,6 @@ app.use('/data', data);
 app.use('/settings', settings);
 
 app.get('/', function(req, res) {
-    // res.sendFile('display.html', { root: path.join(__dirname, './views/settings/') });
-    // res.sendFile('display.html', { root: path.join(__dirname, './views/data/') });
     res.sendFile('index.html', { root: path.join(__dirname, './views/') });
 });
 

@@ -1,8 +1,13 @@
+/*
+ * Mongoose model for game settings 
+ */
+
 var mongoose = require('mongoose');
 var db = mongoose.createConnection('mongodb://localhost:27017/settingscollection');
 
 var schema = mongoose.Schema;
 
+/* Setting format */
 var Setting = new mongoose.Schema({
 	"game" : String,
 	"gameMode" : String,
@@ -27,8 +32,10 @@ var Setting = new mongoose.Schema({
 db.model('Setting', Setting);
 var Setting = db.model('Setting');
 
+/* What is exported from this file */
 SettingProvider = function(){};
 
+/* Find all game settings */
 SettingProvider.prototype.findAll = function(callback) {
 	Setting.find()
 		.sort("game")
@@ -39,9 +46,9 @@ SettingProvider.prototype.findAll = function(callback) {
 		});
 };
 
+/* Find specific game setting */
 SettingProvider.prototype.find = function(game, callback) {
-	Setting.find(
-		{ "game" : game },
+	Setting.find({ "game" : game },
 		{}, 
 		function(err, setting) {
 			if (!err) {
@@ -51,9 +58,9 @@ SettingProvider.prototype.find = function(game, callback) {
 	);
 };
 
+/* Update specific game setting */
 SettingProvider.prototype.update = function(game, setting, callback) {
-	Setting.update( // didn't use save because don't want update by _id
-		{ "game" : game },
+	Setting.update({ "game" : game }, // didn't use save because don't want update by _id
 		setting,
 		{ upsert : true },
 		function(err, doc) {
@@ -64,9 +71,9 @@ SettingProvider.prototype.update = function(game, setting, callback) {
 	);
 };
 
+/* Delete specific game setting */
 SettingProvider.prototype.delete = function(game, callback) {
-	Setting.remove(
-		{ "game" : game },
+	Setting.remove({ "game" : game },
 		function(err, object) {
 			if (!err) {
 				callback();
@@ -75,6 +82,7 @@ SettingProvider.prototype.delete = function(game, callback) {
 	);
 };
 
+/* Count number of game settings */
 SettingProvider.prototype.count = function(criteria, callback) {
 	Setting.count(criteria,
 		function(err, numberOfDocs) {

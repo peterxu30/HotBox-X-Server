@@ -1,10 +1,8 @@
-/* Controller for data */
-
 /* 
-	Display all data game by game, player by player on HTML like an excel file.
-	List events by time stamp.
-	Allow csv of all data to be downloaded.
-*/
+ * Handles logic for data page.
+ * Displays all data game by game, player by player.
+ * Allow csv of all data to be downloaded.
+ */
 
 function dataController($rootScope, $http, $filter) {
 	$http.defaults.headers.common["x-access-token"] = $rootScope.$storage.token;
@@ -22,17 +20,15 @@ function dataController($rootScope, $http, $filter) {
 
 	/* function bindings */
 	vm.refresh = refresh;
-	// vm.update = update;
 	vm.remove = remove;
 	vm.removeAll = removeAll;
-	vm.select = select;
 	vm.incrementGameType = incrementGameType;
 	vm.decrementGameType = decrementGameType;
 	vm.incrementCurrentGame = incrementCurrentGame;
 	vm.decrementCurrentGame = decrementCurrentGame;
-	// vm.JSON2CSV = JSON2CSV;
 	vm.download = download;
 
+	/* Get information to display page */
 	function refresh() {
 		$http.get('/data/')
 			.success(function(data) {
@@ -73,6 +69,16 @@ function dataController($rootScope, $http, $filter) {
 			});
 	}
 
+	/* Deletes all game settings for ALL game types */
+	function removeAll() {
+		for (var i = 0; i < vm.totalGameTypes; i++) {
+			remove(i, false);
+		}
+		vm.currentGameType = 0;
+		refresh();
+	}
+
+	/* Converts CSV string into CSV file for download */
 	function download() {
 		$http.get('/data/csv/')
 			.success(function(csv) {
@@ -90,15 +96,7 @@ function dataController($rootScope, $http, $filter) {
 			});	
 	}
 
-	/* Deletes all game settings for ALL game types */
-	function removeAll() {
-		for (var i = 0; i < vm.totalGameTypes; i++) {
-			remove(i, false);
-		}
-		vm.currentGameType = 0;
-		refresh();
-	}
-
+	/* Go next game type if possible */
 	function incrementGameType() {
 		if (vm.currentGameType < vm.totalGameTypes) {
 			vm.currentGameType += 1;
@@ -106,6 +104,7 @@ function dataController($rootScope, $http, $filter) {
 		refresh();
 	}
 
+	/* Go preivous game type if possible */
 	function decrementGameType() {
 		if (vm.currentGameType > 0) {
 			vm.currentGameType -= 1;
@@ -113,25 +112,19 @@ function dataController($rootScope, $http, $filter) {
 		refresh();
 	}
 
-	/* Go to selected game */
-	function select(gameNumber) {
-		vm.currentGame = gameNumber;
-		refresh();
-	}
-
-	/* Go next game setting if possible */
+	/* Go next game if possible */
 	function incrementCurrentGame() {
 		if (vm.currentGame < vm.currentPlayCount - 1) {
-			select(vm.currentGame + 1);
+			vm.currentGame = vm.currentGame + 1;
 		} else {
 			refresh();
 		}
 	}
 
-	/* Go preivous game setting if possible */
+	/* Go preivous game if possible */
 	function decrementCurrentGame() {
 		if (vm.currentGame > 0) {
-			select(vm.currentGame - 1);
+			vm.currentGame = vm.currentGame - 1;
 		} else {
 			refresh();
 		}

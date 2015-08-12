@@ -1,8 +1,13 @@
+/*
+ * Mongoose model for game data
+ */
+
 var mongoose = require('mongoose');
 var db = mongoose.createConnection('mongodb://localhost:27017/datacollection');
 
 var schema = mongoose.Schema;
 
+/* Data format */
 var Data = new mongoose.Schema({
 	"id" : String,
 	"game" : Number,
@@ -32,8 +37,10 @@ var Data = new mongoose.Schema({
 db.model('Data', Data);
 var Data = db.model('Data');
 
+/* What is exported from this file */
 DataProvider = function(){};
 
+/* Find all game data */
 DataProvider.prototype.findAll = function(callback) {
 	Data.find()
 		.sort("game")
@@ -44,9 +51,9 @@ DataProvider.prototype.findAll = function(callback) {
 		});
 };
 
+/* Find game data for specific game */
 DataProvider.prototype.find = function(game, callback) {
-	Data.find(
-		{ "game" : game },
+	Data.find({ "game" : game },
 		{}, 
 		function(err, data) {
 			if (!err) {
@@ -56,9 +63,9 @@ DataProvider.prototype.find = function(game, callback) {
 	);
 };
 
+/* Create new game data */
 DataProvider.prototype.create = function(data, callback) {
-	Data.create(
-		data,
+	Data.create(data,
 		function(err, doc) {
 			if (!err) {
 				callback();
@@ -67,10 +74,9 @@ DataProvider.prototype.create = function(data, callback) {
 	);
 };
 
+/* Delete all game data for one game type */
 DataProvider.prototype.delete = function(game, callback) {
-	Data.remove(
-		// { "game" : game },
-		{},
+	Data.remove({ "game" : game },
 		function(err, object) {
 			if (!err) {
 				callback();
@@ -79,6 +85,7 @@ DataProvider.prototype.delete = function(game, callback) {
 	);
 };
 
+/* Count number of game data objects */
 DataProvider.prototype.count = function(criteria, callback) {
 	Data.count(criteria,
 		function(err, numberOfDocs) {
@@ -88,26 +95,5 @@ DataProvider.prototype.count = function(criteria, callback) {
 		}
 	);
 };
-
-// experimental
-// DataProvider.prototype.deleteBy = function(attribute, value, callback) {
-// 	Data.remove(
-// 		{ attribute : value },
-// 		function(err, object) {
-// 			if (!err) {
-// 				callback();
-// 			}
-// 		});
-// }
-
-// DataProvider.prototype.deleteAll = function(callback) {
-// 	Data.remove(
-// 		{},
-// 		function(err, object) {
-// 			if (!err) {
-// 				callback();
-// 			}
-// 		});
-// }
 
 exports.DataProvider = DataProvider;

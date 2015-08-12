@@ -1,3 +1,7 @@
+/*
+ * Mongoose model for user accounts
+ */
+
 var config = require('../config');
 
 var mongoose = require('mongoose');
@@ -5,17 +9,19 @@ var db = mongoose.createConnection(config.database);
 
 var schema = mongoose.Schema;
 
+/* User format */
 var User = new mongoose.Schema({
 	"name" : String,
 	"password" : String,
-	"admin" : Boolean
 });
 
 db.model('User', User);
 var User = db.model('User');
 
+/* What is exported from this file */
 UserProvider = function(){};
 
+/* Find all accounts */
 UserProvider.prototype.findAll = function(callback) {
 	User.find()
 		.sort("name")
@@ -26,9 +32,9 @@ UserProvider.prototype.findAll = function(callback) {
 		});
 };
 
+/* Find specific account */
 UserProvider.prototype.find = function(name, callback) {
-	User.find(
-		{ "name" : name },
+	User.find({ "name" : name },
 		{}, 
 		function(err, User) {
 			if (!err) {
@@ -38,12 +44,13 @@ UserProvider.prototype.find = function(name, callback) {
 	);
 };
 
+/* Update specific account */
 UserProvider.prototype.update = function(name, user, callback) {
-	User.update( // didn't use save because don't want update by _id
-		{ "name" : name },
+	User.update({ "name" : name }, // didn't use save because don't want update by _id
 		user,
 		{ upsert : true },
 		function(err, doc) {
+			console.log("UserProvider");
 			if (!err) {
 				callback();
 			}
@@ -51,9 +58,9 @@ UserProvider.prototype.update = function(name, user, callback) {
 	);
 };
 
+/* Delete specific account */
 UserProvider.prototype.delete = function(name, callback) {
-	User.remove(
-		{ "name" : name },
+	User.remove({ "name" : name },
 		function(err, object) {
 			if (!err) {
 				callback();
@@ -62,6 +69,7 @@ UserProvider.prototype.delete = function(name, callback) {
 	);
 };
 
+/* Count number of users */
 UserProvider.prototype.count = function(criteria, callback) {
 	User.count(criteria,
 		function(err, numberOfDocs) {
@@ -71,31 +79,5 @@ UserProvider.prototype.count = function(criteria, callback) {
 		}
 	);
 };
-
-// new UserProvider().update(0, 
-// 	{
-// 		"game" : "0",
-// 		"gameMode" : "penalty",
-// 		"rewardValue" : "1",
-// 		"penaltyValue" : "5",
-// 		"minScore" : "0",
-// 		"playerSpeed" : "7.3",
-// 		"playerWidth" : "32",
-// 		"playerHeight" : "32",
-// 		"playerX" : "60",
-// 		"playerY" : "240",
-// 		"gravity" : "14",
-// 		"distribution" : "uniform",
-// 		"normalMean" : "1",
-// 		"normalSD" : "1",
-// 		"waveStart" : "480",
-// 		"objectWidth" : "18",
-// 		"objectSpeed" : "6",
-// 		"objectSpawnX" : "800"
-// 	},
-// 	function(err, User){
-// 		console.log("updated User");
-// 	}
-// );
 
 exports.UserProvider = UserProvider;

@@ -1,0 +1,39 @@
+<body>
+	<div class="row">
+		<div class="col-md-4" />
+		<div class="col-md-4">
+			<h2 class="text-center"> Account Settings </h2>
+			<p ng-show="accountVm.statusChanged" class="text-center alert"> {{ accountVm.statusMessage }} </p>
+			<p> Change your account password, create a new account, or delete your account here. </p>
+			
+			<hr>
+
+			<div class="text-center">
+				<h3> Change Password </h3>
+				<p class="text-center"> <b> Username: {{ user.name = $storage.name }} </b> </p>
+				<input type="password" placeholder="new password" ng-model="user.password" class="text-center" />
+				<br>
+				<button ng-click="accountVm.update(user)" class="btn btn-default top-buffer-10"> change password </button>
+				<hr>
+			</div>
+
+			<div class="text-center">
+				<h3> Create New Account </h3>
+				<input type="text" placeholder="username" ng-model="newAcc.name" class="text-center" />
+				<br>
+				<input type="password" placeholder="password" ng-model="newAcc.password" class="text-center top-buffer-10" />
+				<br>
+				<button ng-click="accountVm.update(newAcc)" class="btn btn-default top-buffer-10"> create new account </button>
+			</div>
+
+			<hr>
+
+			<div class="text-center">
+				<h3> Delete this account </h3>
+				<p class="text-center"> WARNING: This is nonreversible! You will be automatically logged out. </p>
+				<button ng-click="accountVm.remove($storage.name)" class="btn btn-default"> delete account </button>
+			</div>
+		</div>
+		<div class="col-md-4" />
+	</div>
+</body>

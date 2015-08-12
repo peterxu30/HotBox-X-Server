@@ -1,0 +1,68 @@
+<body>
+	<div class="row text-center">
+		<h4> Game Data </h4>
+	</div>
+
+	<div class="row">
+		<div class="col-md-1" />
+		<div class="col-md-8">
+			<table class="table">
+				<tr>
+					<th> Time Stamp </th>
+
+					<th> Player Y Position </th>
+
+					<th> Score </th>
+
+					<th> Activity </th>	
+				</tr>
+				<tr ng-repeat="data in dataVm.displayData[dataVm.currentGame].gameData">
+					<td> {{ data.timeStamp }} </td>
+					<td> {{ data.playerY }} </td>
+					<td> {{ data.score }} </td>
+
+					<td ng-if="data.pressedSpace == true"> Pressed space </td>
+					<td ng-if="data.obstacleCollision == true"> Obstacle collision </td>
+					<td ng-if="data.waveSpawned == true"> Wave spawned. {{ data.numberOfObstacles }} obstacles spawned. 
+						<ul id="gameObjectList">
+							<li> Obstacle 1 Position: ({{ data.obstacle1X }}, {{ data.obstacle1Y }}) </li>
+							<li> Obstacle 1 Height: {{ data.obstacle1Height }} </li> 
+
+							<div ng-if="data.obstacle2Height != 0">
+								<li> Obstacle 2 Position: ({{ data.obstacle2X }}, {{ data.obstacle2Y }}) </li>
+								<li> Obstacle 2 Height: {{ data.obstacle2Height }} </li> 
+							</div>
+
+							<div ng-if="data.obstacle3Height != 0">
+								<li> Obstacle 3 Position: ({{ data.obstacle3X }}, {{ data.obstacle3Y }}) </li>
+								<li> Obstacle 3 Height: {{ data.obstacle3Height }} </li> 
+							</div>
+
+							<li> Reward Position: ({{ data.rewardX }}, {{ data.rewardY }}) </li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-md-3">
+			<h4> Current Game Type: {{ dataVm.currentGameType }} / {{ dataVm.totalGameTypes }} </h4>
+
+			<button ng-click="dataVm.decrementGameType()"> prev </button>
+			<input type="number" placeholder="game number" value="0" ng-model="dataVm.currentGameType" />
+			<button ng-click="dataVm.incrementGameType()"> next </button>
+
+			<h5 class="top-buffer-20"> Game: {{ dataVm.currentGame }} / {{ dataVm.currentPlayCount }} </h5>
+			<h6> (games are zero-indexed) </h6>
+			<button ng-click="dataVm.decrementCurrentGame()"> prev </button>
+			<input type="number" placeholder="game number" value="0" ng-model="dataVm.currentGame" />
+			<button ng-click="dataVm.incrementCurrentGame()"> next </button>
+
+			<button ng-click="dataVm.download()" class="btn btn-default top-buffer-20"> download csv </button>
+			<button ng-click="dataVm.remove(dataVm.currentGameType, true)" class="btn btn-default top-buffer-20"> 
+				delete all data for game type {{ dataVm.currentGameType }} 
+			</button>
+			<button ng-click="dataVm.removeAll()" class="btn btn-default top-buffer-20"> delete all data for all game types </button>
+		</div>
+	</div>
+</body>

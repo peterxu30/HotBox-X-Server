@@ -1,7 +1,8 @@
 /*
  * Handles login relevant functions.
- * Logging into admin portal.
+ * Users must log in to gain admin control.
  */
+
 var express = require('express');
 var jwt = require('jsonwebtoken');
 var config = require('../config');
@@ -13,14 +14,12 @@ var userProvider = new UserProvider();
 // Load the bcrypt module
 var bcrypt = require('bcrypt');
 
-var length;
-
 router.route('/authenticate')
 
 	.post(function(req, res) {
-		console.log(req.body.password);
 		var name = req.body.name || req.query.name || req.headers['name'];
 		var password = req.body.password || req.query.password || req.headers['password'];
+		
 		userProvider.find(name, function(err, user) {
 			if (err) {
 				throw err;
@@ -33,14 +32,10 @@ router.route('/authenticate')
 					if (!match) {
 						res.json({ "success" : false, "message" : 'Authentication failed. Wrong password.' });
 					} else {
-						if (req.body.name === "hotboxx") {
-							var secret = config.lessSecret;
-						} else {
-							var secret = config.secret;
-						}
+						var secret = config.secret;
+
 						var tokenPayload = {
 							"user" : user.name,
-							"admin" : user.admin
 						};
 						var token = jwt.sign(tokenPayload, secret, {
 							expiresInMinutes: 1440 // expires in 24 hours
@@ -56,7 +51,7 @@ router.route('/authenticate')
 			}
 
 		})
-	})
+	});
 
 router.get('/setup', function(req, res) {
 
@@ -66,7 +61,6 @@ router.get('/setup', function(req, res) {
 	// 		{
 	// 			"name" : "tlin051",
 	// 			"password" : hash,
-	// 			"admin" : true
 	// 		};
 	// 		console.log("tlin051" + " " + hash);
 	// 		userProvider.update("tlin051",
@@ -87,7 +81,6 @@ router.get('/setup', function(req, res) {
 	// 		{
 	// 			"name" : "peterxu30",
 	// 			"password" : hash,
-	// 			"admin" : true
 	// 		};
 	// 		console.log("tlin051" + " " + hash);
 	// 		userProvider.update("peterxu30",
@@ -108,7 +101,6 @@ router.get('/setup', function(req, res) {
 	// 		{
 	// 			"name" : "hotboxx",
 	// 			"password" : hash,
-	// 			"admin" : false
 	// 		};
 	// 		console.log("tlin051" + " " + hash);
 	// 		userProvider.update("hotboxx",
@@ -125,4 +117,3 @@ router.get('/setup', function(req, res) {
 });
 
 module.exports = router;
-

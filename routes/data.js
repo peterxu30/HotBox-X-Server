@@ -13,6 +13,7 @@ var router = express.Router();
 var dataProvider = require('../models/DataProvider');
 var dataProvider = new DataProvider();
 
+/* Number of game data objects */
 var length;
 
 /* Checks if data has been updated. 
@@ -22,6 +23,7 @@ var length;
 var updated = true;
 var csvString;
 
+/* Counts number of game data objects */
 var count = function() {
 	dataProvider.count({}, 
 		function(err, numberOfDocs) {
@@ -37,22 +39,23 @@ router.use(function(req, res, next) {
 });
 
 router.route('/csv')
+	/* Get CSV file of game data */
 	.get(function(req, res) {
-		dataProvider.findAll(function(err, datas) {
-			if (err) {
-				res.send(err);
+		dataProvider.findAll(
+			function(err, datas) {
+				if (err) {
+					res.send(err);
+				}
+				if (updated) {
+					csvString = json2csv(datas); //datas is array of game data objects
+					updated = false;
+				}
+				res.send(csvString);
 			}
-			if (updated) {
-				csvString = json2csv(datas); //datas is array of game data objects
-				console.log("Updated data");
-				updated = false;
-			}
-			// res.set('Content-Type', 'text/csv');
-			// res.set('Content-disposition', 'attachment; filename=data.csv');
-			res.send(csvString);
-		});
+		);
 	});
 
+/* JSON to CSV converter for game data */
 function json2csv(data) {
 	var csv = '';
 	var comma = ',';
@@ -97,6 +100,7 @@ function json2csv(data) {
 }
 
 router.route('/:game?/')
+	/* Get all game data */
 	.get(function(req, res) {
 		dataProvider.findAll(  
 			function(err, datas) {
@@ -111,8 +115,8 @@ router.route('/:game?/')
 		);
 	})
 
+	/* Add new game data to database */
 	.post(function(req, res) {
-		// console.log(req.body[0]);
 		updated = true;
 		for (var count = 0; count < req.body.length ; count++) {
 			var data = req.body[count];
@@ -122,8 +126,6 @@ router.route('/:game?/')
 				"game" : data.game,
 				"gameData" : data.gameData
 			};
-
-			console.log(newData);
 
 			dataProvider.create(
 				newData,
@@ -138,6 +140,7 @@ router.route('/:game?/')
 		}
 	})
 
+	/* Delete game data for specific game type */
 	.delete(function(req, res) {
 		dataProvider.delete(req.params.game,
 			function(err, data) {
