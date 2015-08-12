@@ -1,6 +1,6 @@
 {
-  "name": "running_game_server",
-  "version": "0.0.0",
+  "name": "hot_boxx_server",
+  "version": "8.10.15",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -15,7 +15,6 @@
     "jsonwebtoken": "^5.0.4",
     "mongodb": "~2.0.36",
     "mongoose": "~4.0.7",
-    "monk": "~1.0.1",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
   }
