@@ -2,14 +2,16 @@
 <html ng-app="app">
 	<head>
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://localhost:8443/stylesheets/custom.css">
+		<link rel="stylesheet" href="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com//stylesheets/custom.css">
+		<link href='https://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
+		<title> HotBox-X </title>
 	</head>
 
 	<body class="container">
 		<div ng-controller="loginController as loginVm">
 			<div id="navbar" class="navbar navbar-default navbar-fixed-top">
 				<ul class="nav navbar-nav">
-					<li class="navbar-brand"> HotBox X </li>
+					<li class="navbar-brand title"> HotBox-X </li>
 					<li><a href="#/"> Home </a> </li>
 					<li><a href="#about"> About </a> </li>
 					<li><a href="#settings" ng-show="$storage.loggedIn"> Settings </a></li>
@@ -38,11 +40,20 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js"></script>
 		<script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-		<script type="text/javascript" src="https://localhost:8443/javascripts/settings/settingsApp.js"></script>
-		<script type="text/javascript" src="https://localhost:8443/javascripts/data/dataApp.js"></script>
-		<script type="text/javascript" src="https://localhost:8443/javascripts/accounts/accountsApp.js"></script>
-		<script type="text/javascript" src="https://localhost:8443/javascripts/routesApp.js"></script>
-		<script type="text/javascript" src="https://localhost:8443/javascripts/app.js"></script>
-		<script type="text/javascript" src="https://localhost:8443/javascripts/loginController.js"></script>
+
+		<script type="text/javascript" src="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com//javascripts/settings/settingsApp.js"></script>
+		<script type="text/javascript" src="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com//javascripts/data/dataApp.js"></script>
+		<script type="text/javascript" src="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com/javascripts/accounts/accountsApp.js"></script>
+		<script type="text/javascript" src="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com//javascripts/routesApp.js"></script>
+		<script type="text/javascript" src="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com//javascripts/app.js"></script>
+		<script type="text/javascript" src="http://ec2-52-8-138-168.us-west-1.compute.amazonaws.com/javascripts/loginController.js"></script>
+
+		<script type="text/javascript">
+			document.documentElement.addEventListener('keydown', function (e) {
+                  if ( ( e.keycode || e.which ) == 32) {
+                      e.preventDefault();
+                  }
+              }, false);
+		</script>
 	</body>
 </html>

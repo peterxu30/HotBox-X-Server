@@ -93,6 +93,7 @@ SettingProvider.prototype.count = function(criteria, callback) {
 	);
 };
 
+// seed new database
 // new SettingProvider().update(0, 
 // 	{
 // 		"game" : "0",

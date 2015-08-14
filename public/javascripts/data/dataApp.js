@@ -71,7 +71,7 @@ function dataController($rootScope, $http, $filter) {
 
 	/* Deletes all game settings for ALL game types */
 	function removeAll() {
-		for (var i = 0; i < vm.totalGameTypes; i++) {
+		for (var i = 0; i <= vm.totalGameTypes; i++) {
 			remove(i, false);
 		}
 		vm.currentGameType = 0;

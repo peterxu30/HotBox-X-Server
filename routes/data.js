@@ -7,7 +7,6 @@
  */
 
 var express = require('express');
-var converter = require('json-2-csv');
 var router = express.Router();
 
 var dataProvider = require('../models/DataProvider');

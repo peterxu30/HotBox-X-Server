@@ -23,7 +23,7 @@ function loginController($rootScope, $http, $location, $localStorage) {
 
     /* Checks if login credentials are correct */
     function login() {
-        localStorage.$reset();
+        $localStorage.$reset();
         $http.post('/login/authenticate/', vm.credentials)
             .success(function(status) {
                 if (status.success) {

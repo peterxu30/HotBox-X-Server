@@ -6,9 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var path = require('path');
 
-// var http = require('http');
-var https = require('https');
-var fs = require('fs');
+var http = require('http');
+
+var cors = require('cors');
 
 var login = require('./routes/login');
 //all routes below this must be authenticated before using.
@@ -19,26 +19,14 @@ var data = require('./routes/data');
 
 var app = express();
 
-var options = {
-    key: fs.readFileSync('./ssl/server.key'),
-    cert: fs.readFileSync('./ssl/server.crt'),
-    ca: fs.readFileSync('./ssl/ca.crt'),
-    requestCert: true,
-    rejectUnauthorized: false
-};
-
-var secureServer = https.createServer(options, app).listen('8443', function() {
-    console.log("Secure Express server listening on port 8443");
-});
-
-// http.createServer(app).listen(3500);
+http.createServer(app).listen(8080, '127.0.0.1');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,8 +34,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
+//enable cross origin resource sharing
+app.use(cors());
+
 app.use('/login', login);
-// app.use(tokenauth);
+app.use(tokenauth);
 app.use('/users', users);
 app.use('/data', data);
 app.use('/settings', settings);

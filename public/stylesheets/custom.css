@@ -5,6 +5,8 @@ body { height: 850px;
 
 p    { text-align: justify; }
 
+.title { font-family: 'Russo One', sans-serif; }
+
 .top-buffer-5 { margin-top: 5px; }
 
 .top-buffer-10 { margin-top: 10px; }
