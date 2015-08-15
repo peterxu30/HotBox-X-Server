@@ -29,6 +29,21 @@ function router($routeProvider) {
 				}
 			}
       	})
+
+      	.when('/settings/guide', {
+      		templateUrl: 'settingsguide.html',
+      		resolve: {
+        		checkLoggedIn: function($q, $rootScope) {
+					var defer = $q.defer();
+					if($rootScope.$storage.loggedIn) {
+						defer.resolve();
+					} else {
+						defer.reject("not_logged_in");
+					}
+					return defer.promise;
+				}
+			}
+      	})
       	
       	.when('/data', {
         	templateUrl: 'data.html',

@@ -1,0 +1,79 @@
+<body>
+	<h4 class="text-center"> Settings Guide </h4>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<p class="text-center">
+				The game screen is 800 x 480 pixels. (0, 0) is the top left corner of the screen and (800, 480) is the bottom right corner of the screen.
+				Obstacles spawn from the right side of the screen and travel left.
+				<br/>
+				<b> All text fields must be in lowercase </b>
+			</p>
+
+			<h5> Game </h5>
+			<li> The round whose settings you are modifying. </li>
+
+			<h5> Game Mode </h5>
+			<li> 
+				<b> penalty </b> : Obstacle collisions result in score penalty. When score < min score, game over.
+				<br/>
+				<b> permadeath </b> : Obstacle collision results in game over.
+			</li>
+
+			<h5> Reward Value </h5>
+			<li> How many points rewards are worth. </li>
+
+			<h5> Penalty Value </h5>
+			<li> The score penalty on obstacle collisions in penalty mode. </li>
+
+			<h5> Min Score </h5>
+			<li> The minimum score in penalty mode. Falling below it results in game over. </li>
+
+			<h5> Player Speed </h5>
+			<li> How much the player jumps when SPACE is pressed. </li>
+
+			<h5> Player Width </h5>
+			<li> The width of the player in pixels. </li>
+
+			<h5> Player Height </h5>
+			<li> The height of the player in pixels. </li>
+
+			<h5> Player X </h5>
+			<li> The x-coordinate of the player. The player is stationary on the x-axis. </li>
+
+			<h5> Player Y </h5>
+			<li> The y-coordinate spawn of the player. </li>
+
+			<h5> Gravity </h5>
+			<li> The value of gravity. </li>
+
+			<h5> Distribution </h5>
+			<li> 
+				The distribution type used to randomly generate game objects (obstacles and rewards) in waves. 
+				<br/>
+				<b> uniform </b> : Generate waves based on a uniform distribution.
+				<br/>
+				<b> normal </b> : Generate waves based on a normal distribution.
+			</li>
+
+			<h5> Normal Mean </h5>
+			<li> The mean of the normal distribution if the distribution is normal. Range is 0 to 9. </li>
+
+			<h5> Normal SD </h5>
+			<li> The standard deviation of the normal distribution if the distribution is normal. </li>
+
+			<h5> Wave Start </h5>
+			<li> The x-coordinate the previous wave must pass through to spawn the next wave. </li>
+
+			<h5> Object Width </h5>
+			<li> The width of obstacles </li>
+
+			<h5>Object Speed </h5>
+			<li> The speed waves travel. </li>
+
+			<h5> Object Spawn X </h5>
+			<li> The x-coordinate where waves spawn. </li>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+</body>
