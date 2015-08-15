@@ -57,7 +57,9 @@ function dataController($rootScope, $http, $filter) {
 				} else {
 					vm.currentGameType -= 1;
 				}
+				vm.currentGame = 0;
 
+				/* For removeAll */
 				console.log(data);
 				if (refresh) {
 					refresh();
@@ -75,6 +77,7 @@ function dataController($rootScope, $http, $filter) {
 			remove(i, false);
 		}
 		vm.currentGameType = 0;
+		vm.currentGame = 0;
 		refresh();
 	}
 
