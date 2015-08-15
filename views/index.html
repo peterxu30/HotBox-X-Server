@@ -9,7 +9,7 @@
 
 	<body class="container">
 		<div ng-controller="loginController as loginVm">
-			<div id="navbar" class="navbar navbar-default navbar-fixed-top">
+			<div class="navbar navbar-default navbar-fixed-top">
 				<ul class="nav navbar-nav">
 					<li class="navbar-brand title"> HotBox-X </li>
 					<li><a href="#/"> Home </a> </li>
@@ -24,14 +24,15 @@
 					<li><a href="#data" ng-show="$storage.loggedIn"> Data </a></li>
 					<li><a href="#account" ng-show="$storage.loggedIn"> Account </a></li>
 				</ul>
-				<form ng-show="!$storage.loggedIn" class="col-md-3 login" id="login">
-					<br>
+				<form ng-show="!$storage.loggedIn" class="navbar-form navbar-right">
+					<div class="form-group">
 					Username: <input type="text" placeholder="username" ng-model="loginVm.credentials.name" />
 					Password: <input type="password" placeholder="password" ng-model="loginVm.credentials.password" />
+					</div>
 					<button ng-click="loginVm.login()" class="btn btn-default btn-sm"> Log In </button>
 				</form> 
 
-				<div ng-show="$storage.loggedIn" class="col-md-3 login" id="loggedIn">
+				<div ng-show="$storage.loggedIn" class="navbar-form navbar-right">
 					Logged in: {{ $storage.name }}
 					<button ng-click="loginVm.logout()" class="btn btn-default btn-sm"> Log Out </button>
 				</div>
