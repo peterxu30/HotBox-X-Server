@@ -64,6 +64,7 @@ DataProvider.prototype.find = function(game, callback) {
 };
 
 /* Create new game data */
+// DataProvider.prototype.update = function(id, game, data, callback) {
 DataProvider.prototype.create = function(data, callback) {
 	Data.create(data,
 		function(err, doc) {
