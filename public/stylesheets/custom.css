@@ -1,35 +1,72 @@
-html { overflow-y:scroll; }
+html { 
+	overflow-y:scroll; 
+}
 
-body { height: 850px;
-       padding-top:50px; }
+body { 
+	height: 850px;
+    padding-top:50px; 
+}
 
-p    { text-align: justify; }
+p { 
+	text-align: justify; 
+}
 
-a:hover { text-decoration: none; }
+a:link {
+    text-decoration: none;
+}
 
-.title { font-family: 'Russo One', sans-serif; }
+a:visited { 
+	text-decoration: none; 
+}
 
-.top-buffer-5 { margin-top: 5px; }
+a:hover { 
+	text-decoration: none; 
+}
 
-.top-buffer-10 { margin-top: 10px; }
+a:active { 
+	text-decoration: none; 
+}
 
-.top-buffer-20 { margin-top:20px; }
+.title { 
+	font-family: 'Russo One', sans-serif; 
+}
 
-.hr-margin { margin-bottom: 0px; }
+.top-buffer-5 { 
+	margin-top: 5px; 
+}
 
-.border-1 { border: 1px solid black; }
+.top-buffer-10 { 
+	margin-top: 10px; 
+}
+
+.top-buffer-20 { 
+	margin-top:20px; 
+}
+
+.hr-margin { 
+	margin-bottom: 0px; 
+}
+
+.border-1 { 
+	border: 1px solid black; 
+}
 
 .alert { color: red;
 		 font-size: 30px; 
 		 border: 3px solid pink;
-		 background-color: white; }
+		 background-color: white; 
+}
 
-#setting-list { margin-bottom:30px; }
+#setting-list { 
+	margin-bottom:30px; 
+}
 
 #login { float: right; 
 	 	 width: 550px; 
-         margin-top: -10px; }
+         margin-top: -10px; 
+}
 
 #loggedIn { float: right; 
 		    width: 300px; 
-		    margin-top: 10px; }
+		    margin-top: 10px; 
+}
