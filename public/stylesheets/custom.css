@@ -5,6 +5,8 @@ body { height: 850px;
 
 p    { text-align: justify; }
 
+a:hover { text-decoration: none; }
+
 .title { font-family: 'Russo One', sans-serif; }
 
 .top-buffer-5 { margin-top: 5px; }
@@ -14,6 +16,8 @@ p    { text-align: justify; }
 .top-buffer-20 { margin-top:20px; }
 
 .hr-margin { margin-bottom: 0px; }
+
+.border-1 { border: 1px solid black; }
 
 .alert { color: red;
 		 font-size: 30px; 

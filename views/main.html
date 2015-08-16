@@ -13,4 +13,11 @@
 		</div>
 		<div class="col-md-1"></div>
 	</div>
+	<script type="text/javascript">
+		document.documentElement.addEventListener('keydown', function (e) {
+              if ( ( e.keycode || e.which ) == 32) {
+                  e.preventDefault();
+              }
+          }, false);
+	</script>
 </body>

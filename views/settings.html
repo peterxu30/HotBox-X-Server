@@ -16,10 +16,79 @@
 				<tr>
 					<td>
 					<table>
-						<tr ng-repeat="(key, value) in settingsVm.formData" ng-hide="$first" ng-if="$index < 10">
-							<td> {{ key + ": "}} </td>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The round whose settings you are modifying."> game: </a>
+							</td>
 							<td> 
-								<input type="text" placeholder="{{ value }}" ng-value="value" required="string" ng-model="settingsVm.formData[key]" /> 
+								<input type="number" ng-value="settingsVm.formData.game" required="number" ng-model="settingsVm.formData.game" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="<b>Penalty:</b> Obstacle collisions result in score penalty. When score < min score, game over. <br/> <b>Permadeath:</b> Obstacle collision results in game over."> gameMode: </a>
+							</td>
+							<td> 
+								<select ng-model="settingsVm.formData.gameMode">
+									<option value="penalty"> penalty </option>
+									<option value="permadeath"> permadeath </option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="How many points rewards are worth."> rewardValue: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.rewardValue" required="number" ng-model="settingsVm.formData.rewardValue" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The score penalty on obstacle collisions in penalty mode."> penaltyValue: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.penaltyValue" required="number" ng-model="settingsVm.formData.penaltyValue" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The minimum score in penalty mode. Falling below it results in game over."> minScore: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.minScore" required="number" ng-model="settingsVm.formData.minScore" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="How much the player jumps when SPACE is pressed."> playerSpeed: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.playerSpeed" required="number" ng-model="settingsVm.formData.playerSpeed" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The width of the player in pixels."> playerWidth: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.playerWidth" required="number" ng-model="settingsVm.formData.playerWidth" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The height of the player in pixels."> playerHeight: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.playerHeight" required="number" ng-model="settingsVm.formData.playerHeight" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The value of gravity."> gravity: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.gravity" required="number" ng-model="settingsVm.formData.gravity" /> 
 							</td>
 						</tr>
 					</table>
@@ -27,12 +96,86 @@
 
 					<td>
 					<table>
-						<tr ng-repeat="(key, value) in settingsVm.formData" ng-hide="$first" ng-if="$index >= 10">
-							<td> {{ key + ": "}} </td>
-							<td> 
-								<input type="text" placeholder="{{ value }}" ng-value="value" required="string" ng-model="settingsVm.formData[key]" /> 
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The x-coordinate of the player. The player is stationary on the x-axis."> playerX: </a>
 							</td>
-							
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.playerX" required="number" ng-model="settingsVm.formData.playerX" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The y-coordinate spawn of the player."> playerY: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.playerY" required="number" ng-model="settingsVm.formData.playerY" /> 
+							</td>
+						</tr>
+						<tr>
+							<td> 
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The distribution type used to randomly generate game objects (obstacles and rewards) in waves. 
+								<br/> 
+								<b> uniform </b> : Generate waves based on a uniform distribution.
+								<br/> 
+								<b> normal </b> : Generate waves based on a normal distribution."> distribution: </a>
+							</td>
+							<td> 
+								<select ng-model="settingsVm.formData.distribution">
+									<option value="normal"> normal </option>
+									<option value="uniform"> uniform </option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td> 
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The mean of the normal distribution if the distribution is normal. Range is 0 to 9. 
+								<br/>
+								This determines where gaps will be located in the wave. 0 is the top most zone, 9 is the bottom most."> normalMean: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.normalMean" required="number" ng-model="settingsVm.formData.normalMean" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The standard deviation of the normal distribution if the distribution is normal."> normalSD: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.normalSD" required="number" ng-model="settingsVm.formData.normalSD" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The x-coordinate the previous wave must pass through to spawn the next wave."> waveStart: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.waveStart" required="number" ng-model="settingsVm.formData.waveStart" /> 
+							</td>
+						</tr>
+						<tr>
+							<td> 
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The width of obstacles"> objectWidth: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.objectWidth" required="number" ng-model="settingsVm.formData.objectWidth" /> 
+							</td>
+						</tr>
+						<tr>
+							<td> 
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The speed waves travel."> objectSpeed: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.objectSpeed" required="number" ng-model="settingsVm.formData.objectSpeed" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The x-coordinate where waves spawn."> objectSpawnX: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.objectSpawnX" required="number" ng-model="settingsVm.formData.objectSpawnX" /> 
+							</td>
 						</tr>
 					</table>
 					</td>
@@ -58,4 +201,9 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function(){
+		    $('[data-toggle="popover"]').popover(); 
+		});
+	</script>
 </body>

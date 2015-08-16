@@ -9,24 +9,24 @@ var schema = mongoose.Schema;
 
 /* Setting format */
 var Setting = new mongoose.Schema({
-	"game" : String,
+	"game" : Number,
 	"gameMode" : String,
-	"rewardValue" : String,
-	"penaltyValue" : String,
-	"minScore" : String,
-	"playerSpeed" : String,
-	"playerWidth" : String,
-	"playerHeight" : String,
-	"playerX" : String,
-	"playerY" : String,
-	"gravity" : String,
+	"rewardValue" : Number,
+	"penaltyValue" : Number,
+	"minScore" : Number,
+	"playerSpeed" : Number,
+	"playerWidth" : Number,
+	"playerHeight" : Number,
+	"playerX" : Number,
+	"playerY" : Number,
+	"gravity" : Number,
 	"distribution" : String,
-	"normalMean" : String,
-	"normalSD" : String,
-	"waveStart" : String,
-	"objectWidth" : String,
-	"objectSpeed" : String,
-	"objectSpawnX" : String
+	"normalMean" : Number,
+	"normalSD" : Number,
+	"waveStart" : Number,
+	"objectWidth" : Number,
+	"objectSpeed" : Number,
+	"objectSpawnX" : Number
 });
 
 db.model('Setting', Setting);
@@ -92,32 +92,5 @@ SettingProvider.prototype.count = function(criteria, callback) {
 		}
 	);
 };
-
-// seed new database
-// new SettingProvider().update(0, 
-// 	{
-// 		"game" : "0",
-// 		"gameMode" : "penalty",
-// 		"rewardValue" : "1",
-// 		"penaltyValue" : "5",
-// 		"minScore" : "0",
-// 		"playerSpeed" : "7.3",
-// 		"playerWidth" : "32",
-// 		"playerHeight" : "32",
-// 		"playerX" : "60",
-// 		"playerY" : "240",
-// 		"gravity" : "14",
-// 		"distribution" : "uniform",
-// 		"normalMean" : "1",
-// 		"normalSD" : "1",
-// 		"waveStart" : "480",
-// 		"objectWidth" : "18",
-// 		"objectSpeed" : "6",
-// 		"objectSpawnX" : "800"
-// 	},
-// 	function(err, setting){
-// 		console.log("updated setting");
-// 	}
-// );
 
 exports.SettingProvider = SettingProvider;
