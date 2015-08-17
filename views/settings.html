@@ -1,5 +1,7 @@
 <body>
 	<div class="row text-center">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 		<h4> {{ "Current Game Settings: " + settingsVm.currentGame }} </h4>
 		<h5> {{ "Total Number of Games: " + settingsVm.totalGames }} </h5>
 		<h6> (games are zero-indexed) </h6>
@@ -7,6 +9,8 @@
 		<button ng-click="settingsVm.decrement()"> prev </button>
 		<input type="number" placeholder="game number" value="0" ng-model="settingsVm.currentGame" />
 		<button ng-click="settingsVm.increment()"> next </button>
+		</div>
+		
 	</div>
 	
 	<div class="row top-buffer-20">
@@ -193,10 +197,10 @@
 		</div>
 
 		<div class="col-md-2">
-			<h4> Choose Game </h4>
+			<h4 class="text-center"> Choose Game </h4>
 			<div>
 				<div ng-repeat="setting in settingsVm.settings">
-					<button ng-click="settingsVm.select(setting.game)" class="btn btn-default top-buffer-5"> {{ "Game: " + setting.game }} </button>
+					<button ng-click="settingsVm.select(setting.game)" class="btn btn-default btn-block top-buffer-5"> {{ "Game: " + setting.game }} </button>
 				</div>
 			</div>
 		</div>

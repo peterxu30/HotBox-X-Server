@@ -45,6 +45,13 @@ function dataController($rootScope, $http, $filter) {
 			});
 	}
 
+	/* For switching between game types without refreshing data which can be slow */
+	function switchGameType(gameType) {
+		vm.displayData = $filter('filter')(vm.data, { "game" : vm.currentGameType }, false);
+		vm.gamesPlayedCount[vm.currentGameType] = vm.displayData.length; 
+		vm.currentPlayCount = vm.gamesPlayedCount[vm.currentGameType];
+	}
+
 	/* First page load */
 	refresh();
 
@@ -103,24 +110,22 @@ function dataController($rootScope, $http, $filter) {
 	function incrementGameType() {
 		if (vm.currentGameType < vm.totalGameTypes) {
 			vm.currentGameType += 1;
+			switchGameType(vm.currentGameType);
 		}
-		refresh();
 	}
 
 	/* Go preivous game type if possible */
 	function decrementGameType() {
 		if (vm.currentGameType > 0) {
 			vm.currentGameType -= 1;
+			switchGameType(vm.currentGameType);
 		}
-		refresh();
 	}
 
 	/* Go next game if possible */
 	function incrementCurrentGame() {
 		if (vm.currentGame < vm.currentPlayCount - 1) {
 			vm.currentGame = vm.currentGame + 1;
-		} else {
-			refresh();
 		}
 	}
 
@@ -128,8 +133,6 @@ function dataController($rootScope, $http, $filter) {
 	function decrementCurrentGame() {
 		if (vm.currentGame > 0) {
 			vm.currentGame = vm.currentGame - 1;
-		} else {
-			refresh();
 		}
 	}
 }
