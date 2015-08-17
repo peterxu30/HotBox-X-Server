@@ -22,6 +22,7 @@
 					<td> {{ data.score }} </td>
 
 					<td ng-if="data.pressedSpace == true"> Pressed space </td>
+					<td ng-if="data.rewarded == true"> Collected reward </td>
 					<td ng-if="data.obstacleCollision == true"> Obstacle collision </td>
 					<td ng-if="data.waveSpawned == true"> Wave spawned. {{ data.numberOfObstacles }} obstacles spawned. 
 						<ul id="gameObjectList">
