@@ -54,58 +54,18 @@ router.route('/authenticate')
 		})
 	});
 
-// set up all accounts
+// set up accounts
 // router.get('/setup', function(req, res) {
 
-// 	bcrypt.hash("mpcberkeleytlin", 10, function(err, hash) {
+// 	bcrypt.hash("PASSWORD_HERE", 10, function(err, hash) {
 // 		    // Store hash in your password DB.
 // 		    var updatedUser = 
 // 			{
-// 				"name" : "tlin051",
+// 				"name" : "NAME_HERE",
 // 				"password" : hash,
 // 			};
 // 			console.log("tlin051" + " " + hash);
 // 			userProvider.update("tlin051",
-// 				updatedUser,
-// 				function(err, user) {
-// 					if (err) {
-// 						res.send(err);
-// 					}
-// 					console.log("User updated");
-// 					res.json(user);
-// 				}
-// 			);
-// 		});
-
-// 	bcrypt.hash("mpcberkeleypxu", 10, function(err, hash) {
-// 		    // Store hash in your password DB.
-// 		    var updatedUser = 
-// 			{
-// 				"name" : "peterxu30",
-// 				"password" : hash,
-// 			};
-// 			console.log("tlin051" + " " + hash);
-// 			userProvider.update("peterxu30",
-// 				updatedUser,
-// 				function(err, user) {
-// 					if (err) {
-// 						res.send(err);
-// 					}
-// 					console.log("User updated");
-// 					res.json(user);
-// 				}
-// 			);
-// 		});
-
-// 	bcrypt.hash("mpcberkeleyhotboxx", 10, function(err, hash) {
-// 		    // Store hash in your password DB.
-// 		    var updatedUser = 
-// 			{
-// 				"name" : "hotboxx",
-// 				"password" : hash,
-// 			};
-// 			console.log("tlin051" + " " + hash);
-// 			userProvider.update("hotboxx",
 // 				updatedUser,
 // 				function(err, user) {
 // 					if (err) {
