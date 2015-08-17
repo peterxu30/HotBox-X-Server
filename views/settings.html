@@ -29,7 +29,7 @@
 								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="<b>Penalty:</b> Obstacle collisions result in score penalty. When score < min score, game over. <br/> <b>Permadeath:</b> Obstacle collision results in game over."> gameMode: </a>
 							</td>
 							<td> 
-								<select ng-model="settingsVm.formData.gameMode">
+								<select ng-model="settingsVm.formData.gameMode" class="form-control">
 									<option value="penalty"> penalty </option>
 									<option value="permadeath"> permadeath </option>
 								</select>
@@ -121,7 +121,7 @@
 								<b> normal </b> : Generate waves based on a normal distribution."> distribution: </a>
 							</td>
 							<td> 
-								<select ng-model="settingsVm.formData.distribution">
+								<select ng-model="settingsVm.formData.distribution" class="form-control">
 									<option value="normal"> normal </option>
 									<option value="uniform"> uniform </option>
 								</select>
@@ -182,17 +182,17 @@
 				</tr>
 
 				<tr> 
-					<td></td>
 					<td>
-						<button ng-click="settingsVm.update()" class="btn btn-default"> submit </button>
-						<button ng-click="settingsVm.remove(settingsVm.currentGame)" class="btn btn-default"> delete </button>
+						<button ng-click="settingsVm.update()" class="btn btn-default btn-primary btn-block"> submit </button>
+					</td>
+					<td>
+						<button ng-click="settingsVm.remove(settingsVm.currentGame)" class="btn btn-default btn-danger btn-block"> delete </button>
 					</td> 
 				</tr>
 			</table>
 		</div>
 
 		<div class="col-md-2">
-			<!-- <div class="container-fluid"> -->
 			<h4> Choose Game </h4>
 			<div>
 				<div ng-repeat="setting in settingsVm.settings">

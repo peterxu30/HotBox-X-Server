@@ -58,11 +58,11 @@
 			<input type="number" placeholder="game number" value="0" ng-model="dataVm.currentGame" />
 			<button ng-click="dataVm.incrementCurrentGame()"> next </button>
 
-			<button ng-click="dataVm.download()" class="btn btn-default top-buffer-20"> download csv </button>
-			<button ng-click="dataVm.remove(dataVm.currentGameType, true)" class="btn btn-default top-buffer-20"> 
+			<button ng-click="dataVm.download()" class="btn btn-default btn-primary btn-block top-buffer-20"> download csv </button>
+			<button ng-click="dataVm.remove(dataVm.currentGameType, true)" class="btn btn-default btn-danger btn-block top-buffer-20"> 
 				delete all data for game type {{ dataVm.currentGameType }} 
 			</button>
-			<button ng-click="dataVm.removeAll()" class="btn btn-default top-buffer-20"> delete all data for all game types </button>
+			<button ng-click="dataVm.removeAll()" class="btn btn-default btn-danger btn-block top-buffer-20"> delete all data for all game types </button>
 		</div>
 	</div>
 </body>
