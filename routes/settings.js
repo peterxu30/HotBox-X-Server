@@ -49,6 +49,8 @@ router.route('/:game?')
 		{
 			"game" : req.body.game,
 			"gameMode" : req.body.gameMode,
+			"timed" : req.body.timed,
+			"timeLimit" : req.body.timeLimit,
 			"rewardValue" : req.body.rewardValue,
 			"penaltyValue" : req.body.penaltyValue,
 			"minScore" : req.body.minScore,

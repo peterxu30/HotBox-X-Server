@@ -41,6 +41,26 @@
 						</tr>
 						<tr>
 							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="Does the game end after a certain period of time?"> timed: </a>
+							</td>
+							<td> 
+								<select class="form-control" ng-model="settingsVm.formData.timed" ng-options="(item?'time limit':'no time limit') for item in [true, false]"></select>
+								<!-- <select ng-model="settingsVm.formData.timed" class="form-control">
+									<option ng-value="true"> true </option>
+									<option ng-value="false"> false </option>
+								</select> -->
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="Time (in seconds) before game ends."> timeLimit: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.timeLimit" required="number" ng-model="settingsVm.formData.timeLimit" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="How many points rewards are worth."> rewardValue: </a>
 							</td>
 							<td> 
@@ -95,14 +115,6 @@
 								<input type="number" ng-value="settingsVm.formData.gravity" required="number" ng-model="settingsVm.formData.gravity" /> 
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The width of gaps. Default is 88."> gapWidth: </a>
-							</td>
-							<td> 
-								<input type="number" ng-value="settingsVm.formData.gapWidth" required="number" ng-model="settingsVm.formData.gapWidth" /> 
-							</td>
-						</tr>
 					</table>
 					</td>
 
@@ -122,6 +134,14 @@
 							</td>
 							<td> 
 								<input type="number" ng-value="settingsVm.formData.playerY" required="number" ng-model="settingsVm.formData.playerY" /> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="" data-toggle="popover" data-trigger="hover" data-html="true" data-content="The width of gaps. Default is 88."> gapWidth: </a>
+							</td>
+							<td> 
+								<input type="number" ng-value="settingsVm.formData.gapWidth" required="number" ng-model="settingsVm.formData.gapWidth" /> 
 							</td>
 						</tr>
 						<tr>

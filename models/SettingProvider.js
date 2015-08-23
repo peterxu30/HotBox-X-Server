@@ -11,6 +11,8 @@ var schema = mongoose.Schema;
 var Setting = new mongoose.Schema({
 	"game" : Number,
 	"gameMode" : String,
+	"timed" : Boolean,
+	"timeLimit" : Number,
 	"rewardValue" : Number,
 	"penaltyValue" : Number,
 	"minScore" : Number,
