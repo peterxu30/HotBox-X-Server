@@ -2,7 +2,7 @@
  * Handles logging in to admin panel.
  */
 
-function loginController($rootScope, $http, $location, $localStorage) {
+function loginController($rootScope, $http, $location, $localStorage, jwtHelper, $interval) {
     /* For global use, specifically account authentication across pages */
     $rootScope.$storage = $localStorage;
     $rootScope.$storage.loggedIn = false;
@@ -20,6 +20,16 @@ function loginController($rootScope, $http, $location, $localStorage) {
     /* function bindings */
     vm.login = login;
     vm.logout = logout;
+    vm.jwtExpirationChecker = jwtExpirationChecker;
+
+    function jwtExpirationChecker() {
+        $interval(function() {
+            if ($rootScope.$storage.token != null && jwtHelper.isTokenExpired($rootScope.$storage.token)) {
+                console.log("Token has expired: " + jwtHelper.isTokenExpired($rootScope.$storage.token));
+                logout();
+            }
+        }, 7200000);
+    }
 
     /* Checks if login credentials are correct */
     function login() {
@@ -50,5 +60,5 @@ function loginController($rootScope, $http, $location, $localStorage) {
 };
 
 angular
-  .module('app', ['ngStorage', 'routesApp'])
-  .controller('loginController', ['$rootScope', '$http', '$location', '$localStorage', loginController]);
+  .module('app', ['ngStorage', 'routesApp', 'angular-jwt'])
+  .controller('loginController', ['$rootScope', '$http', '$location', '$localStorage', 'jwtHelper', '$interval', loginController]);

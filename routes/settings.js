@@ -64,7 +64,7 @@ router.route('/:game?')
 			"normalMean" : req.body.normalMean,
 			"normalSD" : req.body.normalSD,
 			"waveStart" : req.body.waveStart,
-			"gapWidth" : req.body.gapWidth,
+			"gapHeight" : req.body.gapHeight,
 			"objectWidth" : req.body.objectWidth,
 			"objectSpeed" : req.body.objectSpeed,
 			"objectSpawnX" : req.body.objectSpawnX

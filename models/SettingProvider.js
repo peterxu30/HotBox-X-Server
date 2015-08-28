@@ -26,7 +26,7 @@ var Setting = new mongoose.Schema({
 	"normalMean" : Number,
 	"normalSD" : Number,
 	"waveStart" : Number,
-	"gapWidth" : Number,
+	"gapHeight" : Number,
 	"objectWidth" : Number,
 	"objectSpeed" : Number,
 	"objectSpawnX" : Number
