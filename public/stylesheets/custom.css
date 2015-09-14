@@ -43,6 +43,10 @@ a:active {
 	margin-top:20px; 
 }
 
+.top-negative-buffer-10 {
+	margin-top: -10px;
+}
+
 .hr-margin { 
 	margin-bottom: 0px; 
 }
