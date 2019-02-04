@@ -10,7 +10,7 @@ This app hosts the website the game is located on as well as the REST endpoint f
 
 ### Gameplay
 ![Gameplay 1](images/gameplay.png)
-![Gameplay 2](images/gameplay2.png)
+<!--![Gameplay 2](images/gameplay2.png)-->
 
 ### Settings
 ![Settings](images/settings.png)
